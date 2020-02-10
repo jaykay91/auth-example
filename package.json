@@ -1,0 +1,11 @@
+{
+  "name": "auth-example",
+  "description": "사용자 인증 예제 입니다.",
+  "scripts": {
+    "start": "",
+    "test": "",
+    "dev": ""
+  },
+  "author": "JK",
+  "license": "MIT"
+}
