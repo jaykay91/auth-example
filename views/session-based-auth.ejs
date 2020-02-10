@@ -8,41 +8,71 @@
   <body>
     <h2>Session Based Auth</h2>
     <img src="/cat.jpg" alt="This is Cat" />
+
+    <% if (!user) { %>
     <div>
-      <h3>Login</h3>
-      <div>
-        <span>ID: </span>
-        <span><input type="text"/></span>
-      </div>
-      <div>
-        <span>PW: </span>
-        <span><input type="password"/></span>
-      </div>
-      <div>
-        <button>Login</button>
-      </div>
-    </div>
-    <div>
-      <h3>Join</h3>
-      <div>
+      <form method="POST" action="/session-based-auth/login">
+        <h3>Login</h3>
         <div>
           <span>ID: </span>
-          <span><input type="text"/></span>
+          <span><input name="id" type="text"/></span>
         </div>
         <div>
           <span>PW: </span>
-          <span><input type="password"/></span>
+          <span><input name="pw" type="password"/></span>
         </div>
         <div>
-          <span>Message: </span>
+          <button type="submit">Login</button>
+        </div>
+      </form>
+      <form method="POST" action="/session-based-auth/join">
+        <h3>Join</h3>
+        <div>
           <div>
-            <textarea cols="30" rows="5"></textarea>
+            <span>ID: </span>
+            <span><input name="id" type="text"/></span>
+          </div>
+          <div>
+            <span>PW: </span>
+            <span><input name="pw" type="password"/></span>
+          </div>
+          <div>
+            <span>Message: </span>
+            <div>
+              <textarea name="message" cols="30" rows="5"></textarea>
+            </div>
+          </div>
+          <div>
+            <button type="submit">Join</button>
           </div>
         </div>
-        <div>
-          <button>Join</button>
-        </div>
+      </form>
+    </div>
+    <% } else { %>
+    <div>
+      <div>
+        <h2><%= user.id %>님 환영합니다!</h2>
+        <h3>Message</h3>
+        <p><%= user.message %></p>
+      </div>
+      <div>
+        <a href="/session-based-auth/logout">Logout</a>
       </div>
     </div>
+    <% } %>
+    <script>
+      const message = "<%= message %>";
+      if (message) {
+        alert(message);
+      }
+    </script>
+    <% if (user) { %>
+    <script>
+      const user = {
+        id: "<%= user.id %>",
+        message: "<%= user.message %>"
+      };
+    </script>
+    <% } %>
   </body>
 </html>
