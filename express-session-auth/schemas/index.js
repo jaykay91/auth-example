@@ -5,8 +5,10 @@ module.exports = () => {
     if (process.env.NODE_ENV !== "production") {
       mongoose.set("debug", true);
     }
+
+    // mongodb://{ID}:{PW}@{HOST}:{PORT}/{AUTHENTICATION_DB}
     mongoose.connect(
-      "mongodb://localhost:27017",
+      `mongodb://ID:PW@localhost:27017`,
       {
         dbName: process.env.DB_NAME
       },
