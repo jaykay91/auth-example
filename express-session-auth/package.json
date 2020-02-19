@@ -3,8 +3,7 @@
   "description": "SSR에서 세션을 사용한 인증 예제입니다.",
   "main": "app.js",
   "scripts": {
-    "start": "",
-    "test": "",
+    "start": "cross-env NODE_ENV=production PORT=8000 node app.js",
     "dev": "nodemon app.js"
   },
   "author": "JK",
@@ -13,7 +12,9 @@
     "axios": "0.19.2",
     "bcrypt": "3.0.8",
     "connect-flash": "0.1.1",
+    "connect-redis": "3.4.2",
     "cookie-parser": "1.4.4",
+    "cross-env": "7.0.0",
     "dotenv": "8.2.0",
     "ejs": "3.0.1",
     "express": "4.17.1",
