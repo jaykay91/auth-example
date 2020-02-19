@@ -13,7 +13,7 @@ dotenv.config();
 const connect = require("./schemas");
 const passportConfig = require("./passport");
 const indexRouter = require("./routes");
-const sessionBasedRouter = require("./routes/session-based-auth");
+const authRouter = require("./routes/auth");
 
 const app = express();
 connect();
@@ -42,8 +42,9 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Router
 app.use("/", indexRouter);
-app.use("/session-based-auth", sessionBasedRouter);
+app.use("/auth", authRouter);
 
 app.use((req, res, next) => {
   next(createError(404));

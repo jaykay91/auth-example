@@ -1,6 +1,6 @@
 {
-  "name": "auth-example",
-  "description": "사용자 인증 예제 입니다.",
+  "name": "express-session-auth",
+  "description": "SSR에서 세션을 사용한 인증 예제입니다.",
   "main": "app.js",
   "scripts": {
     "start": "",
@@ -10,22 +10,22 @@
   "author": "JK",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2",
-    "bcrypt": "^3.0.8",
-    "connect-flash": "^0.1.1",
-    "cookie-parser": "^1.4.4",
-    "dotenv": "^8.2.0",
-    "ejs": "^3.0.1",
-    "express": "^4.17.1",
-    "express-session": "^1.17.0",
-    "http-errors": "^1.7.3",
-    "mongoose": "^5.8.11",
-    "morgan": "^1.9.1",
-    "passport": "^0.4.1",
-    "passport-kakao": "^1.0.0",
-    "passport-local": "^1.0.0"
+    "axios": "0.19.2",
+    "bcrypt": "3.0.8",
+    "connect-flash": "0.1.1",
+    "cookie-parser": "1.4.4",
+    "dotenv": "8.2.0",
+    "ejs": "3.0.1",
+    "express": "4.17.1",
+    "express-session": "1.17.0",
+    "http-errors": "1.7.3",
+    "mongoose": "5.8.11",
+    "morgan": "1.9.1",
+    "passport": "0.4.1",
+    "passport-kakao": "1.0.0",
+    "passport-local": "1.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "2.0.2"
   }
 }

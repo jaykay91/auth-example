@@ -3,7 +3,7 @@ exports.isLoggedInSession = (req, res, next) => {
     next();
   } else {
     req.flash("message", "로그인이 필요합니다.");
-    res.redirect("/session-based-auth");
+    res.redirect("/");
   }
 };
 
@@ -12,6 +12,6 @@ exports.isNotLoggedInSession = (req, res, next) => {
     next();
   } else {
     req.flash("message", "로그아웃이 필요합니다.");
-    res.redirect("/session-based-auth");
+    res.redirect("/");
   }
 };

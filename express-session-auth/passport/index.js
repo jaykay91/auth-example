@@ -1,4 +1,4 @@
-const session_local = require("./session-localStrategy");
+const local = require("./localStrategy");
 const User = require("../schemas/User");
 
 module.exports = passport => {
@@ -18,6 +18,6 @@ module.exports = passport => {
     }
   });
 
-  // session-localStrategy에 passport를 등록한다.
-  session_local(passport);
+  // localStrategy에 passport를 등록한다.
+  local(passport);
 };
