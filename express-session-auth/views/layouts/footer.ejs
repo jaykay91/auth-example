@@ -1,0 +1,24 @@
+<footer>
+  THIS IS FOOTER
+</footer>
+
+
+
+<script>
+  const message = "<%= message %>";
+  if (message) {
+    alert(message);
+  }
+</script>
+
+<% if (user) { %>
+<script>
+  const user = {
+    id: "<%= user.id %>",
+    message: "<%= user.message %>"
+  };
+</script>
+<% } %> 
+
+</body>
+</html>

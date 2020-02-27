@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Session Based Auth</title>
+  </head>
+  <body>
+    <h2>Session Based Auth</h2>
+    <img src="/cat.jpg" alt="This is Cat" />
+
+    <nav>
+      <a href="/">Home</a>
+
+      <% if (user) { %>
+      <a href="/profile">Profile</a>
+      <a href="/auth/logout">Logout</a>
+      <% } else { %>
+      <a href="/join">Join</a>
+      <% } %>
+    </nav>
+  </body>
+</html>

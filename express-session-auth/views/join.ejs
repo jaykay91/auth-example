@@ -1,0 +1,26 @@
+<%- include('layouts/header'); %>
+
+<form method="POST" action="/auth/join">
+  <h3>Join</h3>
+  <div>
+    <div>
+      <span>ID: </span>
+      <span><input name="id" type="text"/></span>
+    </div>
+    <div>
+      <span>PW: </span>
+      <span><input name="pw" type="password"/></span>
+    </div>
+    <div>
+      <span>Message: </span>
+      <div>
+        <textarea name="message" cols="30" rows="5"></textarea>
+      </div>
+    </div>
+    <div>
+      <button type="submit">Join</button>
+    </div>
+  </div>
+</form>
+
+<%- include('layouts/footer'); %>

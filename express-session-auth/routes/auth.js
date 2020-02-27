@@ -2,27 +2,12 @@ const express = require("express");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 
-// middlewares
-
+const { isLogin, isLogout } = require("./middlewares");
 const User = require("../schemas/User");
 
 const router = express.Router();
 
-// router.get("/", (req, res) => {
-//   let user;
-//   if (req.user) {
-//     user = {
-//       id: req.user.id,
-//       message: req.user.message
-//     };
-//   }
-//   res.render("session-based-auth", {
-//     message: req.flash("message"),
-//     user
-//   });
-// });
-
-router.post("/join", async (req, res, next) => {
+router.post("/join", isLogout, async (req, res, next) => {
   try {
     const { id, pw, message } = req.body;
 
@@ -47,7 +32,7 @@ router.post("/join", async (req, res, next) => {
   }
 });
 
-router.post("/login", (req, res, next) => {
+router.post("/login", isLogout, (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       console.error(err);
@@ -70,7 +55,7 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-router.get("/logout", (req, res, next) => {
+router.get("/logout", isLogin, (req, res, next) => {
   try {
     req.logout();
     // req.session.destroy();

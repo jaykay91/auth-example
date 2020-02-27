@@ -42,7 +42,8 @@ const sessionOpts = {
   secret: process.env.COOKIE_SECRET,
   cookie: {
     httpOnly: true,
-    secure: false
+    secure: false,
+    maxAge: 60000
   },
   store: new RedisStore({
     host: "localhost",

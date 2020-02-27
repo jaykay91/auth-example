@@ -11,7 +11,13 @@ module.exports = passport => {
   passport.deserializeUser(async (id, done) => {
     try {
       const user = await User.findOne({ id });
-      done(null, user);
+
+      const newUser = {
+        id: user.id,
+        message: user.message
+      };
+
+      done(null, newUser);
     } catch (err) {
       console.error(err);
       done(err);
