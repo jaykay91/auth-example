@@ -1,4 +1,5 @@
 const local = require("./localStrategy");
+const kakao = require("./kakaoStrategy");
 const User = require("../schemas/User");
 
 module.exports = passport => {
@@ -24,6 +25,7 @@ module.exports = passport => {
     }
   });
 
-  // localStrategy에 passport를 등록한다.
+  // Strategy에 passport를 등록한다.
   local(passport);
+  kakao(passport);
 };

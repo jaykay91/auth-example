@@ -67,4 +67,17 @@ router.get("/logout", isLogin, (req, res, next) => {
   }
 });
 
+router.get("/kakao", passport.authenticate("kakao"));
+
+router.get(
+  "/kakao/callback",
+  passport.authenticate("kakao", {
+    failureRedirect: "/"
+  }),
+  (req, res) => {
+    req.flash("message", "KAKAO 로그인에 성공하였습니다.");
+    res.redirect("/");
+  }
+);
+
 module.exports = router;

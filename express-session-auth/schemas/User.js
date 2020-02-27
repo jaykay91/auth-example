@@ -7,9 +7,9 @@ const userSchema = new Schema({
     required: true,
     unique: true
   },
-  pw: {
-    type: String,
-    required: true
+  pw: String,
+  socialId: {
+    kakao: Number
   },
   message: String
 });
