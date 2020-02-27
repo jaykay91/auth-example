@@ -1,0 +1,37 @@
+{
+  "name": "express-token-auth",
+  "version": "1.0.0",
+  "description": "express와 jwt를 사용한 인증입니다.",
+  "main": "app.js",
+  "scripts": {
+    "start": "",
+    "build": "",
+    "dev:server": "nodemon app.js",
+    "dev:client": ""
+  },
+  "author": "JK",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bcrypt": "^4.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.2",
+    "morgan": "^1.9.1",
+    "vue": "^2.6.11",
+    "vue-router": "^3.1.6",
+    "vuex": "^3.1.2"
+  },
+  "devDependencies": {
+    "css-loader": "^3.4.2",
+    "nodemon": "^2.0.2",
+    "vue-loader": "^15.9.0",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
+}
