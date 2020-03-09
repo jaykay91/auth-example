@@ -5,11 +5,13 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const indexRouter = require("./routes");
 const apiRouter = require("./routes/api");
+const authRouter = require("./routes/auth");
+
+const connectMongo = require("./models");
 
 const app = express();
-// connectMongo()
+connectMongo();
 
 app.set("port", process.env.PORT || 3000);
 
@@ -18,8 +20,8 @@ app.use(express.static(path.join(__dirname, "static")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/", indexRouter);
 app.use("/api", apiRouter);
+app.use("/auth", authRouter);
 
 app.use((req, res, next) => {
   next({
