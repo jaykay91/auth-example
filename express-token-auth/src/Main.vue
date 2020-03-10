@@ -1,6 +1,7 @@
 <template>
   <div>
     <div>
+      <h2>{{ message }}</h2>
       <h3>Login</h3>
     </div>
     <div>
@@ -26,11 +27,19 @@ export default {
   data() {
     return {
       id: "",
-      pw: ""
+      pw: "",
+      message: this.$store.state.message
     };
   },
   methods: {
-    login() {
+    async login() {
+      const { data } = await axios.post("/auth/login", {
+        id: this.id,
+        pw: this.pw
+      });
+
+      console.log(data);
+
       this.id = "";
       this.pw = "";
     }
