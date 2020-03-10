@@ -1,36 +1,24 @@
 <template>
   <div>
-    <h1>{{ message }}</h1>
-    <button @click="getAuth">Get Index</button>
-    <button @click="getApi">Get API</button>
+    <div>
+      <nav>
+        <router-link to="/">홈</router-link>
+        <router-link to="/join">회원가입</router-link>
+        <router-link to="/profile">사용자 정보</router-link>
+      </nav>
+    </div>
+    <div>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import router from "./routes";
 
 export default {
-  data() {
-    return {
-      message: "Bye, Vue!"
-    };
-  },
-  methods: {
-    async getApi() {
-      const { data } = await axios.get("/api/users");
-
-      console.log(data.payload);
-    },
-    async getAuth() {
-      const { data } = await axios.get("/auth");
-      console.log(data);
-    }
-  }
+  router
 };
 </script>
 
-<style>
-h1 {
-  color: green;
-}
-</style>
+<style></style>

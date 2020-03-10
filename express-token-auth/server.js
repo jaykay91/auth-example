@@ -24,14 +24,12 @@ app.use("/api", apiRouter);
 app.use("/auth", authRouter);
 
 app.use((req, res, next) => {
-  next({
-    code: 404,
-    message: "Not Found"
-  });
+  res.sendFile(path.join(__dirname, "static/index.html"));
 });
 
 app.use((err, req, res, next) => {
   let response;
+
   if (err.code) {
     response = err;
   } else {

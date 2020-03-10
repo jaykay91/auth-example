@@ -9,7 +9,8 @@ const userSchema = new Schema({
   },
   pw: String,
   socialId: { kakao: Number },
-  message: String
+  message: String,
+  refreshToken: String
 });
 
 module.exports = mongoose.model("User", userSchema);
