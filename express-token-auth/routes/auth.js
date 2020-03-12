@@ -94,7 +94,7 @@ router.post("/token", async (req, res, next) => {
   try {
     // Access-Token의 위조 여부를 검사합니다
     try {
-      jwt.verify(req.headers.authorization, TOKEN_SECRET_KEY);
+      jwt.verify(req.headers.authorization, JWT_SECRET);
     } catch (err) {
       if (err.name !== "TokenExpiredError") {
         return res.json({

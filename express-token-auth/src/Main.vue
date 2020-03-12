@@ -1,21 +1,26 @@
 <template>
   <div>
-    <div>
-      <h2>{{ message }}</h2>
-      <h3>Login</h3>
+    <div v-if="!user">
+      <div>
+        <h3>Login</h3>
+      </div>
+      <div>
+        <div>
+          <span>ID: </span>
+          <span><input type="text" v-model="id"/></span>
+        </div>
+        <div>
+          <span>PW: </span>
+          <span><input type="password" v-model="pw"/></span>
+        </div>
+        <div>
+          <button @click="login">Login</button>
+        </div>
+      </div>
     </div>
-    <div>
-      <div>
-        <span>ID: </span>
-        <span><input type="text" v-model="id"/></span>
-      </div>
-      <div>
-        <span>PW: </span>
-        <span><input type="password" v-model="pw"/></span>
-      </div>
-      <div>
-        <button @click="login">Login</button>
-      </div>
+    <div v-else>
+      <div><h3>로그인에 성공했습니다</h3></div>
+      <div><button @click="logout">Logout</button></div>
     </div>
   </div>
 </template>
@@ -27,21 +32,30 @@ export default {
   data() {
     return {
       id: "",
-      pw: "",
-      message: this.$store.state.message
+      pw: ""
     };
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    }
   },
   methods: {
     async login() {
-      const { data } = await axios.post("/auth/login", {
+      const payload = {
         id: this.id,
         pw: this.pw
-      });
+      };
 
-      console.log(data);
+      const result = await this.$store.dispatch("login", payload);
+
+      alert(result.message);
 
       this.id = "";
       this.pw = "";
+    },
+    logout() {
+      this.$store.dispatch("logout");
     }
   }
 };
