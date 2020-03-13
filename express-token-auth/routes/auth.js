@@ -1,4 +1,6 @@
 const express = require("express");
+const qs = require("querystring");
+const axios = require("axios").default;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -133,6 +135,104 @@ router.post("/token", async (req, res, next) => {
     console.error(err);
     next(err);
   }
+});
+
+const OAUTH_HOST = "https://kauth.kakao.com";
+const USER_PROFILE_URL = "https://kapi.kakao.com/v2/user/me";
+const redirect_uri = "http://localhost:3000/auth/kakao/callback";
+
+router.get("/kakao", (req, res) => {
+  res.redirect(
+    `${OAUTH_HOST}/oauth/authorize?client_id=${process.env.KAKAO_SECRET}&redirect_uri=${redirect_uri}&response_type=code`
+  );
+});
+
+router.get("/kakao/callback", async (req, res, next) => {
+  try {
+    if (req.query.error) {
+      console.error(req.query.error);
+      return res.redirect("/");
+    }
+
+    const body = {
+      grant_type: "authorization_code",
+      client_id: process.env.KAKAO_SECRET,
+      redirect_uri,
+      code: req.query.code
+    };
+
+    let response = await axios.post(
+      `${OAUTH_HOST}/oauth/token`,
+      qs.stringify(body),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+        }
+      }
+    );
+
+    response = await axios.post(
+      USER_PROFILE_URL,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${response.data.access_token}`,
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+        }
+      }
+    );
+
+    const profile = response.data;
+    const userId = `KAKAO${profile.id}`;
+
+    const tokens = makeTokens({ id: userId });
+
+    let user = await User.findOne({
+      socialId: {
+        kakao: profile.id
+      }
+    });
+
+    if (!user) {
+      user = await new User({
+        id: userId,
+        socialId: {
+          kakao: profile.id
+        },
+        message: `${profile.properties.nickname}입니다`,
+        refreshToken: tokens.refresh
+      }).save();
+    } else {
+      await User.updateOne({ id: userId }, { refreshToken: tokens.refresh });
+    }
+
+    const payload = {
+      user: {
+        id: user.id,
+        message: user.message
+      },
+      tokens
+    };
+
+    // response를 bypass로 전달합니다
+    response = {
+      code: 200,
+      message: "카카오 로그인에 성공했습니다",
+      payload
+    };
+
+    req.flash("responseStr", JSON.stringify(response));
+    res.redirect("/auth/bypass");
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.get("/bypass", (req, res) => {
+  res.render("bypass", {
+    responseEncoded: encodeURIComponent(req.flash("responseStr"))
+  });
 });
 
 module.exports = router;

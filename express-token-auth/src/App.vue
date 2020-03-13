@@ -8,6 +8,7 @@
         </template>
         <template v-else>
           <router-link to="/join">회원가입</router-link>
+          <button @click="loginKakao">카카오 로그인</button>
         </template>
       </nav>
     </div>
@@ -29,7 +30,27 @@ export default {
       return this.$store.state.user;
     }
   },
+  methods: {
+    loginKakao() {
+      window.open(
+        "/auth/kakao",
+        "KAKAO LOGIN",
+        "top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no"
+      );
+    }
+  },
   created() {
+    window.addEventListener("message", async e => {
+      if (e.data && e.data.source === "kakaoLogin") {
+        const response = e.data.response;
+
+        if (response.code === 200) {
+          await this.$store.dispatch("kakaoLogin", response.payload);
+          alert(response.message);
+        }
+      }
+    });
+
     const userDataStr = sessionStorage.getItem("userData");
 
     if (userDataStr) {
