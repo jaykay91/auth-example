@@ -161,15 +161,22 @@ router.get("/kakao/callback", async (req, res, next) => {
       code: req.query.code
     };
 
-    let response = await axios.post(
-      `${OAUTH_HOST}/oauth/token`,
-      qs.stringify(body),
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+    let response;
+
+    try {
+      response = await axios.post(
+        `${OAUTH_HOST}/oauth/token`,
+        qs.stringify(body),
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+          }
         }
-      }
-    );
+      );
+    } catch (err) {
+      console.error(err);
+      return res.redirect("/");
+    }
 
     response = await axios.post(
       USER_PROFILE_URL,
@@ -221,19 +228,23 @@ router.get("/kakao/callback", async (req, res, next) => {
       payload
     };
 
-    req.flash("responseStr", JSON.stringify(response));
-    res.redirect("/auth/bypass");
+    // req.flash("responseStr", JSON.stringify(response));
+    // res.redirect("/auth/bypass");
+
+    res.render("bypass", {
+      responseEncoded: encodeURIComponent(JSON.stringify(response))
+    });
   } catch (err) {
     console.error(err);
     next(err);
   }
 });
 
-router.get("/bypass", (req, res) => {
-  res.render("bypass", {
-    responseEncoded: encodeURIComponent(req.flash("responseStr"))
-  });
-});
+// router.get("/bypass", (req, res) => {
+//   res.render("bypass", {
+//     responseEncoded: encodeURIComponent(req.flash("responseStr"))
+//   });
+// });
 
 module.exports = router;
 

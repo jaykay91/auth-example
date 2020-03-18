@@ -40,12 +40,12 @@ export default {
     }
   },
   created() {
-    window.addEventListener("message", async e => {
+    window.addEventListener("message", e => {
       if (e.data && e.data.source === "kakaoLogin") {
         const response = e.data.response;
 
         if (response.code === 200) {
-          await this.$store.dispatch("kakaoLogin", response.payload);
+          this.$store.dispatch("kakaoLogin", response.payload);
           alert(response.message);
         }
       }

@@ -89,7 +89,7 @@ export default new Vuex.Store({
 
       return result;
     },
-    async kakaoLogin(store, payload) {
+    kakaoLogin(store, payload) {
       store.commit("login", payload);
       sessionStorage.setItem("userData", JSON.stringify(payload));
     }

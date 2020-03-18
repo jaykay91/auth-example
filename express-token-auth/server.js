@@ -2,9 +2,9 @@ const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
-const cookieParser = require("cookie-parser");
-const session = require("express-session");
-const flash = require("connect-flash");
+// const cookieParser = require("cookie-parser");
+// const session = require("express-session");
+// const flash = require("connect-flash");
 
 dotenv.config();
 
@@ -25,19 +25,19 @@ app.use(express.static(path.join(__dirname, "static")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(
-  session({
-    resave: false,
-    saveUninitialized: false,
-    secret: process.env.COOKIE_SECRET,
-    cookie: {
-      httpOnly: true,
-      secure: false
-    }
-  })
-);
-app.use(flash());
+// app.use(cookieParser(process.env.COOKIE_SECRET));
+// app.use(
+//   session({
+//     resave: false,
+//     saveUninitialized: false,
+//     secret: process.env.COOKIE_SECRET,
+//     cookie: {
+//       httpOnly: true,
+//       secure: false
+//     }
+//   })
+// );
+// app.use(flash());
 
 app.use("/api", apiRouter);
 app.use("/auth", authRouter);
